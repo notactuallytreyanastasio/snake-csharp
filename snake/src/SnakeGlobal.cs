@@ -504,7 +504,7 @@ namespace Snake
                 sb__149.Append("#");
                 x__150 = x__150 + 1;
             }
-            sb__149.Append("#\n");
+            sb__149.Append("#\r\n");
             int y__151 = 0;
             while (true)
             {
@@ -520,7 +520,7 @@ namespace Snake
                     sb__149.Append(cellChar__43(game__147, p__153));
                     x__152 = x__152 + 1;
                 }
-                sb__149.Append("#\n");
+                sb__149.Append("#\r\n");
                 y__151 = y__151 + 1;
             }
             sb__149.Append("#");
@@ -532,7 +532,7 @@ namespace Snake
                 sb__149.Append("#");
                 x__154 = x__154 + 1;
             }
-            sb__149.Append("#\n");
+            sb__149.Append("#\r\n");
             string statusText__155;
             IGameStatus t___800 = game__147.Status;
             if (t___800 is Playing)
@@ -547,7 +547,7 @@ namespace Snake
             {
                 statusText__155 = "";
             }
-            sb__149.Append("Score: " + S::Convert.ToString(game__147.Score) + "  " + statusText__155 + "\n");
+            sb__149.Append("Score: " + S::Convert.ToString(game__147.Score) + "  " + statusText__155 + "\r" + "\n");
             return sb__149.ToString();
         }
     }

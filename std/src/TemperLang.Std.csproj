@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>TemperLang.Std</RootNamespace>
     <Version>0.6.0</Version>
     <Authors>Temper Contributors</Authors>

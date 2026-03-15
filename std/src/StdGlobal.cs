@@ -11,6 +11,7 @@ namespace TemperLang.Std.Support
         static StdGlobal()
         {
             RuntimeHelpers.RunClassConstructor(typeof(R::Io.IoGlobal).TypeHandle);
+            RuntimeHelpers.RunClassConstructor(typeof(R::Ws.WsGlobal).TypeHandle);
             RuntimeHelpers.RunClassConstructor(typeof(R::Testing.TestingGlobal).TypeHandle);
             RuntimeHelpers.RunClassConstructor(typeof(R::Json.JsonGlobal).TypeHandle);
             RuntimeHelpers.RunClassConstructor(typeof(R::Net.NetGlobal).TypeHandle);

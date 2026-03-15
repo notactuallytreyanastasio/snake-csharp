@@ -2,25 +2,25 @@ namespace Snake
 {
     public class RandomResult
     {
-        readonly int value__69;
-        readonly int nextSeed__70;
-        public RandomResult(int value__72, int nextSeed__73)
+        readonly int value__122;
+        readonly int nextSeed__123;
+        public RandomResult(int value__125, int nextSeed__126)
         {
-            this.value__69 = value__72;
-            this.nextSeed__70 = nextSeed__73;
+            this.value__122 = value__125;
+            this.nextSeed__123 = nextSeed__126;
         }
         public int Value
         {
             get
             {
-                return this.value__69;
+                return this.value__122;
             }
         }
         public int NextSeed
         {
             get
             {
-                return this.nextSeed__70;
+                return this.nextSeed__123;
             }
         }
     }

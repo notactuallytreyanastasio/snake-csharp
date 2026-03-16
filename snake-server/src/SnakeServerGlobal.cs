@@ -10,382 +10,460 @@ namespace SnakeServer
 {
     public static class SnakeServerGlobal
     {
-        internal static C::ILoggingConsole console___56;
-        internal static int detectedCols__31;
-        internal static int detectedRows__32;
-        internal static int boardWidth__33;
-        internal static int boardHeight__34;
-        internal static S0::MultiSnakeGame game__35;
-        internal static G::IList<W::IWsConnection> wsConns__36;
-        internal static int nextId__37;
-        internal static bool running__38;
-        static G::IEnumerable<S2::Tuple<object ?>> coroHelperfn__269()
+        internal static C::ILoggingConsole console___61;
+        internal static int detectedCols__35;
+        internal static int detectedRows__36;
+        internal static int boardWidth__37;
+        internal static int boardHeight__38;
+        internal static S0::MultiSnakeGame game__39;
+        internal static G::IList<W::IWsConnection> wsConns__40;
+        internal static int nextId__41;
+        internal static bool running__42;
+        static G::IEnumerable<S2::Tuple<object ?>> coroHelperfn__330()
         {
-            int t___250;
-            G::IReadOnlyList<S0::PlayerSnake> t___251;
-            S0::PlayerSnake t___255;
-            G::IReadOnlyList<S0::IDirection> t___259;
-            S0::MultiSnakeGame t___260;
-            int t___263;
+            int t___311;
+            G::IReadOnlyList<S0::PlayerSnake> t___312;
+            S0::PlayerSnake t___316;
+            G::IReadOnlyList<S0::IDirection> t___320;
+            S0::MultiSnakeGame t___321;
             while (true)
             {
-                T::Task<S2::Tuple<object ?>> promise___284;
+                T::Task<S2::Tuple<object ?>> promise___345;
                 try
                 {
-                    if (!(game__35.Snakes.Count == 0))
+                    if (!(game__39.Snakes.Count == 0))
                     {
                         break;
                     }
-                    promise___284 = I::IoSupport.StdSleep(500);
+                    promise___345 = I::IoSupport.StdSleep(500);
                 }
                 catch
                 {
-                    goto CATCH___287;
+                    goto CATCH___347;
                 }
-                yield return C::Async.AwakeUpon(promise___284);
+                yield return C::Async.AwakeUpon(promise___345);
                 try
                 {
-                    C::Core.Ignore(promise___284.Result);
+                    C::Core.Ignore(promise___345.Result);
                 }
                 catch
                 {
-                    goto CATCH___287;
+                    goto CATCH___347;
                 }
             }
             try
             {
-                console___56.Log("Game starting!");
+                console___61.Log("Game starting!");
             }
             catch
             {
-                goto CATCH___287;
+                goto CATCH___347;
             }
-            while (running__38)
+            while (running__42)
             {
-                G::IList<S0::IDirection> dirs__49;
-                int i__50;
-                string frame__52;
-                G::IReadOnlyList<W::IWsConnection> conns__53;
-                int ci__54;
+                G::IList<S0::IDirection> dirs__55;
+                int i__56;
+                string frame__58;
+                G::IReadOnlyList<W::IWsConnection> conns__59;
+                void fn__305(W::IWsConnection conn__60)
+                {
+                    W::WsGlobal.WsSend(conn__60, frame__58);
+                }
+                T::Task<S2::Tuple<object ?>> promise___346;
                 try
                 {
-                    dirs__49 = new G::List<S0::IDirection>();
-                    i__50 = 0;
+                    dirs__55 = new G::List<S0::IDirection>();
+                    i__56 = 0;
                     while (true)
                     {
-                        t___250 = game__35.Snakes.Count;
-                        if (!(i__50 < t___250))
+                        t___311 = game__39.Snakes.Count;
+                        if (!(i__56 < t___311))
                         {
                             break;
                         }
-                        t___251 = game__35.Snakes;
-                        t___255 = new S0::PlayerSnake(0, C::Listed.CreateReadOnlyList<S0::Point>(), new S0::Right(), 0, new S0::Dead());
-                        S0::PlayerSnake snake__51 = C::Listed.GetOr(t___251, i__50, t___255);
-                        C::Listed.Add(dirs__49, snake__51.Direction);
-                        i__50 = i__50 + 1;
+                        t___312 = game__39.Snakes;
+                        t___316 = new S0::PlayerSnake(0, C::Listed.CreateReadOnlyList<S0::Point>(), new S0::Right(), 0, new S0::Dead());
+                        S0::PlayerSnake snake__57 = C::Listed.GetOr(t___312, i__56, t___316);
+                        C::Listed.Add(dirs__55, snake__57.Direction);
+                        i__56 = i__56 + 1;
                     }
-                    t___259 = C::Listed.ToReadOnlyList(dirs__49);
-                    t___260 = S0::SnakeGlobal.MultiTick(game__35, t___259);
-                    game__35 = t___260;
-                    frame__52 = S0::SnakeGlobal.MultiRender(game__35);
-                    conns__53 = C::Listed.ToReadOnlyList(wsConns__36);
-                    ci__54 = 0;
+                    t___320 = C::Listed.ToReadOnlyList(dirs__55);
+                    t___321 = S0::SnakeGlobal.MultiTick(game__39, t___320);
+                    game__39 = t___321;
+                    frame__58 = S0::SnakeGlobal.MultiRender(game__39);
+                    conns__59 = C::Listed.ToReadOnlyList(wsConns__40);
+                    C::Listed.ForEach(conns__59, (S2::Action<W::IWsConnection>) fn__305);
+                    promise___346 = I::IoSupport.StdSleep(200);
                 }
                 catch
                 {
-                    goto CATCH___287;
+                    goto CATCH___347;
                 }
-                while (true)
-                {
-                    try
-                    {
-                        t___263 = conns__53.Count;
-                        if (!(ci__54 < t___263))
-                        {
-                            break;
-                        }
-                    }
-                    catch
-                    {
-                        goto CATCH___287;
-                    }
-                    W::IWsConnection conn__55;
-                    T::Task<S2::Tuple<object ?>> promise___285;
-                    try
-                    {
-                        conn__55 = conns__53[ci__54];
-                        promise___285 = W::WsGlobal.WsSend(conn__55, frame__52);
-                    }
-                    catch
-                    {
-                        goto CATCH___289;
-                    }
-                    yield return C::Async.AwakeUpon(promise___285);
-                    try
-                    {
-                        C::Core.Ignore(promise___285.Result);
-                    }
-                    catch
-                    {
-                        goto CATCH___289;
-                    }
-                    goto OK___290;
-                    CATCH___289:
-                    {
-                    }
-                    OK___290:
-                    {
-                    }
-                    try
-                    {
-                        ci__54 = ci__54 + 1;
-                    }
-                    catch
-                    {
-                        goto CATCH___287;
-                    }
-                }
-                T::Task<S2::Tuple<object ?>> promise___286;
+                yield return C::Async.AwakeUpon(promise___346);
                 try
                 {
-                    promise___286 = I::IoSupport.StdSleep(200);
+                    C::Core.Ignore(promise___346.Result);
                 }
                 catch
                 {
-                    goto CATCH___287;
-                }
-                yield return C::Async.AwakeUpon(promise___286);
-                try
-                {
-                    C::Core.Ignore(promise___286.Result);
-                }
-                catch
-                {
-                    goto CATCH___287;
+                    goto CATCH___347;
                 }
             }
-            goto OK___288;
-            CATCH___287:
+            goto OK___348;
+            CATCH___347:
             {
             }
-            OK___288:
+            OK___348:
             {
             }
         }
-        internal static C::IGenerator<S2::Tuple<object ?>> fn__269()
+        internal static C::IGenerator<S2::Tuple<object ?>> fn__330()
         {
-            return C::Core.AdaptGenerator<S2::Tuple<object ?>>(coroHelperfn__269);
+            return C::Core.AdaptGenerator<S2::Tuple<object ?>>(coroHelperfn__330);
         }
-        static G::IEnumerable<S2::Tuple<object ?>> coroHelperfn__268()
+        static G::IEnumerable<S2::Tuple<object ?>> coroHelperfn__329()
         {
-            string t___238;
-            W::IWsConnection t___132;
-            W::IWsServer server__40;
-            T::Task<W::IWsServer> promise___291;
+            bool t___284;
+            S0::MultiSnakeGame t___287;
+            string t___289;
+            bool t___291;
+            S0::Up t___292;
+            S0::MultiSnakeGame t___293;
+            S0::Down t___294;
+            S0::MultiSnakeGame t___295;
+            S0::Left t___296;
+            S0::MultiSnakeGame t___297;
+            S0::Right t___298;
+            S0::MultiSnakeGame t___299;
+            W::IWsConnection t___151;
+            string ? t___152;
+            string ? t___154;
+            string t___156;
+            string t___171;
+            W::IWsServer server__44;
+            T::Task<W::IWsServer> promise___349;
             try
             {
-                console___56.Log("Snake Multiplayer Server");
-                console___56.Log("Starting on port 8080...");
-                promise___291 = W::WsGlobal.WsListen(8080);
+                console___61.Log("Snake Multiplayer Server");
+                console___61.Log("Starting on port 8080...");
+                promise___349 = W::WsGlobal.WsListen(8080);
             }
             catch
             {
-                goto CATCH___296;
+                goto CATCH___355;
             }
-            yield return C::Async.AwakeUpon(promise___291);
+            yield return C::Async.AwakeUpon(promise___349);
             try
             {
-                server__40 = promise___291.Result;
-                console___56.Log("Listening on ws://localhost:8080");
-                console___56.Log("Waiting for players to connect...");
+                server__44 = promise___349.Result;
+                console___61.Log("Listening on ws://localhost:8080");
+                console___61.Log("Waiting for players to connect...");
             }
             catch
             {
-                goto CATCH___296;
+                goto CATCH___355;
             }
-            while (running__38)
+            while (running__42)
             {
-                T::Task<W::IWsConnection> promise___292;
+                T::Task<W::IWsConnection> promise___350;
                 try
                 {
-                    promise___292 = W::WsGlobal.WsAccept(server__40);
+                    promise___350 = W::WsGlobal.WsAccept(server__44);
                 }
                 catch
                 {
-                    goto CATCH___296;
+                    goto CATCH___355;
                 }
-                yield return C::Async.AwakeUpon(promise___292);
-                W::IWsConnection ws__41;
-                int playerId__42;
-                string symbol__43;
-                int connId__44;
-                W::IWsConnection connWs__45;
-                G::IEnumerable<S2::Tuple<object ?>> coroHelperfn__231()
+                yield return C::Async.AwakeUpon(promise___350);
+                W::IWsConnection ws__45;
+                try
                 {
-                    bool t___217;
-                    S0::Up t___218;
-                    S0::MultiSnakeGame t___219;
-                    S0::Down t___220;
-                    S0::MultiSnakeGame t___221;
-                    S0::Left t___222;
-                    S0::MultiSnakeGame t___223;
-                    S0::Right t___224;
-                    S0::MultiSnakeGame t___225;
-                    string t___226;
-                    string ? t___116;
-                    string t___127;
-                    while (running__38)
+                    t___151 = promise___350.Result;
+                    ws__45 = t___151;
+                }
+                catch
+                {
+                    goto CATCH___355;
+                }
+                T::Task<string ?> promise___351;
+                try
+                {
+                    promise___351 = W::WsGlobal.WsRecv(ws__45);
+                }
+                catch
+                {
+                    goto CATCH___357;
+                }
+                yield return C::Async.AwakeUpon(promise___351);
+                try
+                {
+                    t___152 = promise___351.Result;
+                    t___154 = t___152;
+                }
+                catch
+                {
+                    goto CATCH___357;
+                }
+                goto OK___358;
+                CATCH___357:
+                {
+                    t___154 = null;
+                }
+                OK___358:
+                {
+                }
+                string ? firstMsgRaw__46;
+                bool isSpectator__47;
+                try
+                {
+                    firstMsgRaw__46 = t___154;
+                    isSpectator__47 = false;
+                    if (!(firstMsgRaw__46 == null))
                     {
-                        T::Task<string ?> promise___293;
-                        try
+                        t___284 = firstMsgRaw__46 != null;
+                    }
+                    else
+                    {
+                        t___284 = false;
+                    }
+                    if (t___284)
+                    {
+                        if (firstMsgRaw__46 == null)
                         {
-                            promise___293 = W::WsGlobal.WsRecv(connWs__45);
+                            throw new S2::Exception();
                         }
-                        catch
+                        else
                         {
-                            goto CATCH___294;
+                            t___156 = firstMsgRaw__46!;
                         }
-                        yield return C::Async.AwakeUpon(promise___293);
-                        string ? msg__47;
-                        try
+                        if (t___156 == "spectate")
                         {
-                            t___116 = promise___293.Result;
-                            msg__47 = t___116;
-                            if (!(msg__47 == null))
+                            isSpectator__47 = true;
+                        }
+                    }
+                    if (isSpectator__47)
+                    {
+                        C::Listed.Add(wsConns__40, ws__45);
+                        console___61.Log("Spectator connected!");
+                    }
+                    else
+                    {
+                        int playerId__48 = nextId__41;
+                        nextId__41 = nextId__41 + 1;
+                        t___287 = S0::SnakeGlobal.AddPlayer(game__39, playerId__48 * 7 + 13);
+                        game__39 = t___287;
+                        C::Listed.Add(wsConns__40, ws__45);
+                        string symbol__49 = S0::SnakeGlobal.PlayerHeadChar(playerId__48);
+                        t___289 = S2::Convert.ToString(playerId__48);
+                        console___61.Log("Player " + t___289 + " (" + symbol__49 + ") connected!");
+                        if (!(firstMsgRaw__46 == null))
+                        {
+                            t___291 = firstMsgRaw__46 != null;
+                        }
+                        else
+                        {
+                            t___291 = false;
+                        }
+                        if (t___291)
+                        {
+                            if (firstMsgRaw__46 == null)
                             {
-                                t___217 = msg__47 != null;
+                                throw new S2::Exception();
                             }
                             else
                             {
-                                t___217 = false;
+                                t___171 = firstMsgRaw__46!;
                             }
-                            if (t___217)
+                            if (t___171 == "u")
                             {
-                                if (msg__47 == null)
+                                t___292 = new S0::Up();
+                                t___293 = S0::SnakeGlobal.ChangePlayerDirection(game__39, playerId__48, t___292);
+                                game__39 = t___293;
+                            }
+                            else
+                            {
+                                if (t___171 == "d")
                                 {
-                                    throw new S2::Exception();
+                                    t___294 = new S0::Down();
+                                    t___295 = S0::SnakeGlobal.ChangePlayerDirection(game__39, playerId__48, t___294);
+                                    game__39 = t___295;
                                 }
                                 else
                                 {
-                                    t___127 = msg__47!;
-                                }
-                                if (t___127 == "u")
-                                {
-                                    t___218 = new S0::Up();
-                                    t___219 = S0::SnakeGlobal.ChangePlayerDirection(game__35, connId__44, t___218);
-                                    game__35 = t___219;
-                                }
-                                else
-                                {
-                                    if (t___127 == "d")
+                                    if (t___171 == "l")
                                     {
-                                        t___220 = new S0::Down();
-                                        t___221 = S0::SnakeGlobal.ChangePlayerDirection(game__35, connId__44, t___220);
-                                        game__35 = t___221;
+                                        t___296 = new S0::Left();
+                                        t___297 = S0::SnakeGlobal.ChangePlayerDirection(game__39, playerId__48, t___296);
+                                        game__39 = t___297;
                                     }
                                     else
                                     {
-                                        if (t___127 == "l")
+                                        if (t___171 == "r")
                                         {
-                                            t___222 = new S0::Left();
-                                            t___223 = S0::SnakeGlobal.ChangePlayerDirection(game__35, connId__44, t___222);
-                                            game__35 = t___223;
-                                        }
-                                        else
-                                        {
-                                            if (t___127 == "r")
-                                            {
-                                                t___224 = new S0::Right();
-                                                t___225 = S0::SnakeGlobal.ChangePlayerDirection(game__35, connId__44, t___224);
-                                                game__35 = t___225;
-                                            }
+                                            t___298 = new S0::Right();
+                                            t___299 = S0::SnakeGlobal.ChangePlayerDirection(game__39, playerId__48, t___298);
+                                            game__39 = t___299;
                                         }
                                     }
                                 }
                             }
-                            else
+                        }
+                        int connId__50 = playerId__48;
+                        W::IWsConnection connWs__51 = ws__45;
+                        G::IEnumerable<S2::Tuple<object ?>> coroHelperfn__279()
+                        {
+                            bool t___265;
+                            S0::Up t___266;
+                            S0::MultiSnakeGame t___267;
+                            S0::Down t___268;
+                            S0::MultiSnakeGame t___269;
+                            S0::Left t___270;
+                            S0::MultiSnakeGame t___271;
+                            S0::Right t___272;
+                            S0::MultiSnakeGame t___273;
+                            string t___274;
+                            string ? t___135;
+                            string t___146;
+                            while (running__42)
                             {
-                                t___226 = S2::Convert.ToString(connId__44);
-                                console___56.Log("Player " + t___226 + " disconnected");
-                                break;
+                                T::Task<string ?> promise___352;
+                                try
+                                {
+                                    promise___352 = W::WsGlobal.WsRecv(connWs__51);
+                                }
+                                catch
+                                {
+                                    goto CATCH___353;
+                                }
+                                yield return C::Async.AwakeUpon(promise___352);
+                                string ? msg__53;
+                                try
+                                {
+                                    t___135 = promise___352.Result;
+                                    msg__53 = t___135;
+                                    if (!(msg__53 == null))
+                                    {
+                                        t___265 = msg__53 != null;
+                                    }
+                                    else
+                                    {
+                                        t___265 = false;
+                                    }
+                                    if (t___265)
+                                    {
+                                        if (msg__53 == null)
+                                        {
+                                            throw new S2::Exception();
+                                        }
+                                        else
+                                        {
+                                            t___146 = msg__53!;
+                                        }
+                                        if (t___146 == "u")
+                                        {
+                                            t___266 = new S0::Up();
+                                            t___267 = S0::SnakeGlobal.ChangePlayerDirection(game__39, connId__50, t___266);
+                                            game__39 = t___267;
+                                        }
+                                        else
+                                        {
+                                            if (t___146 == "d")
+                                            {
+                                                t___268 = new S0::Down();
+                                                t___269 = S0::SnakeGlobal.ChangePlayerDirection(game__39, connId__50, t___268);
+                                                game__39 = t___269;
+                                            }
+                                            else
+                                            {
+                                                if (t___146 == "l")
+                                                {
+                                                    t___270 = new S0::Left();
+                                                    t___271 = S0::SnakeGlobal.ChangePlayerDirection(game__39, connId__50, t___270);
+                                                    game__39 = t___271;
+                                                }
+                                                else
+                                                {
+                                                    if (t___146 == "r")
+                                                    {
+                                                        t___272 = new S0::Right();
+                                                        t___273 = S0::SnakeGlobal.ChangePlayerDirection(game__39, connId__50, t___272);
+                                                        game__39 = t___273;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        t___274 = S2::Convert.ToString(connId__50);
+                                        console___61.Log("Player " + t___274 + " disconnected");
+                                        break;
+                                    }
+                                }
+                                catch
+                                {
+                                    goto CATCH___353;
+                                }
+                            }
+                            goto OK___354;
+                            CATCH___353:
+                            {
+                            }
+                            OK___354:
+                            {
                             }
                         }
-                        catch
+                        C::IGenerator<S2::Tuple<object ?>> fn__279()
                         {
-                            goto CATCH___294;
+                            return C::Core.AdaptGenerator<S2::Tuple<object ?>>(coroHelperfn__279);
                         }
+                        C::Async.LaunchGeneratorAsync((S2::Func<G::IEnumerable<S2::Tuple<object ?>>>) fn__279);
                     }
-                    goto OK___295;
-                    CATCH___294:
-                    {
-                    }
-                    OK___295:
-                    {
-                    }
-                }
-                C::IGenerator<S2::Tuple<object ?>> fn__231()
-                {
-                    return C::Core.AdaptGenerator<S2::Tuple<object ?>>(coroHelperfn__231);
-                }
-                try
-                {
-                    t___132 = promise___292.Result;
-                    ws__41 = t___132;
-                    playerId__42 = nextId__37;
-                    nextId__37 = nextId__37 + 1;
-                    game__35 = S0::SnakeGlobal.AddPlayer(game__35, playerId__42 * 7 + 13);
-                    C::Listed.Add(wsConns__36, ws__41);
-                    symbol__43 = S0::SnakeGlobal.PlayerHeadChar(playerId__42);
-                    t___238 = S2::Convert.ToString(playerId__42);
-                    console___56.Log("Player " + t___238 + " (" + symbol__43 + ") connected!");
-                    connId__44 = playerId__42;
-                    connWs__45 = ws__41;
-                    C::Async.LaunchGeneratorAsync((S2::Func<G::IEnumerable<S2::Tuple<object ?>>>) fn__231);
                 }
                 catch
                 {
-                    goto CATCH___296;
+                    goto CATCH___355;
                 }
             }
-            goto OK___297;
-            CATCH___296:
+            goto OK___356;
+            CATCH___355:
             {
             }
-            OK___297:
+            OK___356:
             {
             }
         }
-        internal static C::IGenerator<S2::Tuple<object ?>> fn__268()
+        internal static C::IGenerator<S2::Tuple<object ?>> fn__329()
         {
-            return C::Core.AdaptGenerator<S2::Tuple<object ?>>(coroHelperfn__268);
+            return C::Core.AdaptGenerator<S2::Tuple<object ?>>(coroHelperfn__329);
         }
         static SnakeServerGlobal()
         {
-            console___56 = S1::Logging.LoggingConsoleFactory.CreateConsole("SnakeServer");
-            detectedCols__31 = I::IoGlobal.TerminalColumns();
-            detectedRows__32 = I::IoGlobal.TerminalRows();
-            if (detectedCols__31 > 100)
+            console___61 = S1::Logging.LoggingConsoleFactory.CreateConsole("SnakeServer");
+            detectedCols__35 = I::IoGlobal.TerminalColumns();
+            detectedRows__36 = I::IoGlobal.TerminalRows();
+            if (detectedCols__35 > 100)
             {
-                boardWidth__33 = detectedCols__31 - 4;
+                boardWidth__37 = detectedCols__35 - 4;
             }
             else
             {
-                boardWidth__33 = 80;
+                boardWidth__37 = 80;
             }
-            if (detectedRows__32 > 30)
+            if (detectedRows__36 > 30)
             {
-                boardHeight__34 = detectedRows__32 - 12;
+                boardHeight__38 = detectedRows__36 - 12;
             }
             else
             {
-                boardHeight__34 = 30;
+                boardHeight__38 = 30;
             }
-            game__35 = S0::SnakeGlobal.NewMultiGame(boardWidth__33, boardHeight__34, 0, 42);
-            wsConns__36 = new G::List<W::IWsConnection>();
-            nextId__37 = 0;
-            running__38 = true;
-            C::Async.LaunchGeneratorAsync((S2::Func<G::IEnumerable<S2::Tuple<object ?>>>) fn__269);
-            C::Async.LaunchGeneratorAsync((S2::Func<G::IEnumerable<S2::Tuple<object ?>>>) fn__268);
+            game__39 = S0::SnakeGlobal.NewMultiGame(boardWidth__37, boardHeight__38, 0, 42);
+            wsConns__40 = new G::List<W::IWsConnection>();
+            nextId__41 = 0;
+            running__42 = true;
+            C::Async.LaunchGeneratorAsync((S2::Func<G::IEnumerable<S2::Tuple<object ?>>>) fn__330);
+            C::Async.LaunchGeneratorAsync((S2::Func<G::IEnumerable<S2::Tuple<object ?>>>) fn__329);
         }
     }
 }

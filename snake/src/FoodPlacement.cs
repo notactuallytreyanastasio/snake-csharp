@@ -2,25 +2,25 @@ namespace Snake
 {
     class FoodPlacement
     {
-        readonly Point point__151;
-        readonly int seed__152;
-        public FoodPlacement(Point point__154, int seed__155)
+        readonly Point point__152;
+        readonly int seed__153;
+        public FoodPlacement(Point point__155, int seed__156)
         {
-            this.point__151 = point__154;
-            this.seed__152 = seed__155;
+            this.point__152 = point__155;
+            this.seed__153 = seed__156;
         }
         public Point Point
         {
             get
             {
-                return this.point__151;
+                return this.point__152;
             }
         }
         public int Seed
         {
             get
             {
-                return this.seed__152;
+                return this.seed__153;
             }
         }
     }

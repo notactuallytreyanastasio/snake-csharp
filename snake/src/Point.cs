@@ -2,25 +2,25 @@ namespace Snake
 {
     public class Point
     {
-        readonly int x__107;
-        readonly int y__108;
-        public Point(int x__110, int y__111)
+        readonly int x__108;
+        readonly int y__109;
+        public Point(int x__111, int y__112)
         {
-            this.x__107 = x__110;
-            this.y__108 = y__111;
+            this.x__108 = x__111;
+            this.y__109 = y__112;
         }
         public int X
         {
             get
             {
-                return this.x__107;
+                return this.x__108;
             }
         }
         public int Y
         {
             get
             {
-                return this.y__108;
+                return this.y__109;
             }
         }
     }

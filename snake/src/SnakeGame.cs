@@ -3,79 +3,79 @@ namespace Snake
 {
     public class SnakeGame
     {
-        readonly int width__134;
-        readonly int height__135;
-        readonly G::IReadOnlyList<Point> snake__136;
-        readonly IDirection direction__137;
-        readonly Point food__138;
-        readonly int score__139;
-        readonly IGameStatus status__140;
-        readonly int rngSeed__141;
-        public SnakeGame(int width__143, int height__144, G::IReadOnlyList<Point> snake__145, IDirection direction__146, Point food__147, int score__148, IGameStatus status__149, int rngSeed__150)
+        readonly int width__135;
+        readonly int height__136;
+        readonly G::IReadOnlyList<Point> snake__137;
+        readonly IDirection direction__138;
+        readonly Point food__139;
+        readonly int score__140;
+        readonly IGameStatus status__141;
+        readonly int rngSeed__142;
+        public SnakeGame(int width__144, int height__145, G::IReadOnlyList<Point> snake__146, IDirection direction__147, Point food__148, int score__149, IGameStatus status__150, int rngSeed__151)
         {
-            this.width__134 = width__143;
-            this.height__135 = height__144;
-            this.snake__136 = snake__145;
-            this.direction__137 = direction__146;
-            this.food__138 = food__147;
-            this.score__139 = score__148;
-            this.status__140 = status__149;
-            this.rngSeed__141 = rngSeed__150;
+            this.width__135 = width__144;
+            this.height__136 = height__145;
+            this.snake__137 = snake__146;
+            this.direction__138 = direction__147;
+            this.food__139 = food__148;
+            this.score__140 = score__149;
+            this.status__141 = status__150;
+            this.rngSeed__142 = rngSeed__151;
         }
         public int Width
         {
             get
             {
-                return this.width__134;
+                return this.width__135;
             }
         }
         public int Height
         {
             get
             {
-                return this.height__135;
+                return this.height__136;
             }
         }
         public G::IReadOnlyList<Point> Snake
         {
             get
             {
-                return this.snake__136;
+                return this.snake__137;
             }
         }
         public IDirection Direction
         {
             get
             {
-                return this.direction__137;
+                return this.direction__138;
             }
         }
         public Point Food
         {
             get
             {
-                return this.food__138;
+                return this.food__139;
             }
         }
         public int Score
         {
             get
             {
-                return this.score__139;
+                return this.score__140;
             }
         }
         public IGameStatus Status
         {
             get
             {
-                return this.status__140;
+                return this.status__141;
             }
         }
         public int RngSeed
         {
             get
             {
-                return this.rngSeed__141;
+                return this.rngSeed__142;
             }
         }
     }
